@@ -1,8 +1,7 @@
-import json
 import zipfile
 import os
 import gzip
-import shutil
+import pandas as pd
 
 class Read:
   def __init__(self):
@@ -38,20 +37,8 @@ class Read:
       zip_ref.extractall(destination_decompressed_file_path)
     return True
   
-if __name__ == "__main__":
-  read = Read()
-  read.read_and_save_jsonl_gz_file(
-    os.path.join(os.getcwd(), 'src', 'data', 'compressed', 'amazon_data', 'Digital_Music.jsonl.gz'),
-    os.path.join(os.getcwd(), 'src', 'data', 'raw_data', 'amazon_data'),
-    'digital_music.json'
-  )
-  read.read_and_save_zip_file(
-    os.path.join(os.getcwd(), 'src', 'data', 'compressed', 'movielens_data', 'movie_data_small.zip'), 
-    os.path.join(os.getcwd(), 'src', 'data', 'raw_data', 'movielens_data'))
-  
-  read.read_and_save_jsonl_gz_file(
-    os.path.join(os.getcwd(), 'src', 'data', 'compressed', 'amazon_data', 'meta_Digital_Music.jsonl.gz'),
-    os.path.join(os.getcwd(), 'src', 'data', 'raw_data', 'amazon_data'),
-    'meta_digital_music.json'
-  )
+  def read_parquet_file(self, file_path: str):
+    df = pd.read_parquet(file_path)
+    print(df)
+    return df
 
