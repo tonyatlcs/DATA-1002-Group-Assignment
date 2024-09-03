@@ -1,6 +1,7 @@
 import zipfile
 import os
 import gzip
+import pandas as pd
 
 class Read:
   def __init__(self):
@@ -35,4 +36,9 @@ class Read:
     with zipfile.ZipFile(file_path, 'r') as zip_ref:
       zip_ref.extractall(destination_decompressed_file_path)
     return True
+  
+  def read_parquet_file(self, file_path: str):
+    df = pd.read_parquet(file_path)
+    print(df)
+    return df
 
