@@ -12,8 +12,11 @@ if __name__ == "__main__":
   amazon_meta_path = '../../src/data/raw_data/amazon_data/meta'
   amazon_output_path = '../../src/data/compressed/amazon_data'
   amazon_output_compressed_file_name = 'amazon_review_data.parquet'
+
+  aggregated_data = clean_amazon_data.merge_review_meta_data(amazon_meta_path, amazon_review_path)
+  
   if not os.path.exists(amazon_output_path):
-    clean_amazon_data.aggregate_json_data(amazon_review_path, amazon_meta_path, amazon_output_path, amazon_output_compressed_file_name)
+    clean_amazon_data.aggregate_json_data(aggregated_data, amazon_output_path, amazon_output_compressed_file_name)
 
   # Reading amazon combined data
   amazon_combined_data_path = '../../src/data/compressed/amazon_data/amazon_review_data.parquet'
