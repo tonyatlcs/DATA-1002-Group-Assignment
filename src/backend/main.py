@@ -28,7 +28,4 @@ if __name__ == "__main__":
   print(rating_df)
   analyse_amazon_data.plot_ratings_distribution(rating_df)
 
-  conversion_rate = analyse_amazon_data.caclulate_conversion_rate(amazon_data_df)
-  print(f"Conversion rate: {conversion_rate}")
-
   

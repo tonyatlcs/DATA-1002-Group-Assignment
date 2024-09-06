@@ -22,6 +22,8 @@ class Clean_amazon_data:
       review_file_path = os.path.join(review_data_folder_path, common_file)
 
       meta_df = pd.read_json(meta_file_path, lines=True)
+      print(meta_df.columns, meta_df.dtypes)
+      # I want to print the column types
       meta_df = meta_df.rename(
         columns = {
           'title': 'meta_title',
@@ -31,8 +33,11 @@ class Clean_amazon_data:
 
       review_df = pd.read_json(review_file_path, lines=True)
       joined_df = pd.merge(meta_df, review_df, on='parent_asin', how='outer')
+      joined_df = joined_df.sample(n=10000, random_state = 1)
       joined_df_array.append(joined_df)
-      print(len(joined_df_array))
+
+      # Take a random 10000 rows from the joined_df
+      print(joined_df.shape)
 
     return joined_df_array
 
@@ -50,7 +55,7 @@ class Clean_amazon_data:
     aggregated_joined_df = aggregated_joined_df.rename(
       columns = {
         'user_id': 'user_id',
-        'asin': 'product_id',
+        'asin': 'product_id', 
         'title': 'product_name',
         'rating': 'rating',
         'timestamp': 'timestamp',
@@ -75,6 +80,8 @@ class Clean_amazon_data:
         'category'
       ]
     ]
+
+    cleaned_big_df['price'] = pd.to_numeric(cleaned_big_df['price'], errors='coerce')
 
     # Turn cleaned_big_df into a excel file
     cleaned_big_df.to_csv('cleaned_big_df.csv', index=False)
