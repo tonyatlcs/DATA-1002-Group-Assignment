@@ -6,13 +6,10 @@ class Clean_amazon_data:
     pass
 
   def merge_review_meta_data(self, meta_folder_path: str, review_folder_path: str):
-    # Read the data from the review and meta data folder
-    review_data_folder_path = review_folder_path
-    meta_data_folder_path = meta_folder_path
 
     # Get the files in the review and meta data folder
-    files_in_review_data_folder = set(os.listdir(review_data_folder_path))
-    files_in_meta_data_folder = set(os.listdir(meta_data_folder_path))
+    files_in_review_data_folder = set(os.listdir(review_folder_path))
+    files_in_meta_data_folder = set(os.listdir(meta_folder_path))
 
     # Get the common files in the review and meta data folder
     common_files = files_in_review_data_folder.intersection(files_in_meta_data_folder)
@@ -24,8 +21,8 @@ class Clean_amazon_data:
 
     # Loop through the common files in the review and meta data folder
     for common_file in common_files:
-      meta_file_path = os.path.join(meta_data_folder_path, common_file)
-      review_file_path = os.path.join(review_data_folder_path, common_file)
+      meta_file_path = os.path.join(meta_folder_path, common_file)
+      review_file_path = os.path.join(review_folder_path, common_file)
 
       meta_df = pd.read_json(meta_file_path, lines=True)
       meta_df = meta_df.rename(

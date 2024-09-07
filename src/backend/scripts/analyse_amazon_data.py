@@ -9,6 +9,7 @@ class Analyse_amazon_data:
     df_name_rating = df[['product_name', 'rating', 'has_purchased']]
     return df_name_rating
   
+  # Calculate the conversion rate
   def caclulate_conversion_rate(self, df):
     verified_purchase = df['has_purchased'].to_numpy()
     print(verified_purchase)
